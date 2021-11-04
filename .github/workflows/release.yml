@@ -1,0 +1,45 @@
+name: Release
+
+# Controls when the workflow will run
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2    
+
+  promote-RC-version:
+    needs: checkout
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: promote-RC-version
+        run: echo promote-RC-version
+        
+  deploy-to-PRO:
+    needs: promote-RC-version
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: deploy-to-PRO
+        run: echo Deploy to PRO    
+        
+  tests:
+    needs: deploy-to-PRO
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: tests
+        run: echo Running tests    
+        
+  post:
+    needs: tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: post
+        run: echo Running post actions        
