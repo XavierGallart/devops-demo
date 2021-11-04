@@ -1,0 +1,74 @@
+name: Release-candidate
+
+# Controls when the workflow will run
+on:
+  push:
+    branches:    
+      # Push events to branches matching refs/heads/release/*
+      - 'release/**'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+  static-analysis:
+    needs: checkout
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: static-analysis
+        run: echo Running static-analysis
+
+  unit-tests:
+    needs: checkout
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: unit-tests
+        run: echo Running unit-tests
+        
+  build:
+    needs: [static-analysis, unit-tests]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: build
+        run: echo Running build
+
+  push-to-Quay:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: deploy-to-DEV
+        run: echo Push to Quay.io
+        
+  deploy-to-QA_UA:
+    needs: push-to-Quay
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: deploy-to-DEV
+        run: echo Deploy to DEV    
+        
+  tests:
+    needs: deploy-to-QA_UA
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: tests
+        run: echo Running tests    
+        
+  post:
+    needs: tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: post
+        run: echo Running post actions        
