@@ -32,7 +32,7 @@ jobs:
         run: echo Running unit-tests
         
   build:
-    needs: static-analysis
+    needs: [static-analysis, unit-tests]
     runs-on: ubuntu-latest
 
     steps:
