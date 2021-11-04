@@ -17,6 +17,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+  bump-version:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Latest Commit
+      uses: actions/checkout@v2
+
+    - name: Bump Version
+      id: bump
+      uses: nnichols/maven-version-bump-action@v3
+      with:
+        github-token: ${{ secrets.github_token }}
+
+    - name: Print Version
+      run: "echo 'New Version: ${{steps.bump.outputs.version}}'"
+        
   static-analysis:
     needs: checkout
     runs-on: ubuntu-latest
