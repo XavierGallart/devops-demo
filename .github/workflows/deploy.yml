@@ -13,7 +13,14 @@ on:
         default: ''
 
 jobs:
+  checkout:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
   pull-from-Quay:
+    needs: checkout
     runs-on: ubuntu-latest
     steps:
       - run: echo "Pull ${{ github.event.inputs.version }}!"
