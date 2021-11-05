@@ -50,7 +50,7 @@ jobs:
       - name: Build
         run: |
           mvn package
-          for f in ${{github.workspace}}/target/*.jar; do mv "$f" "$(echo "$f" | sed s/.jar/-RC-N.jar/)"; done
+          for f in ${{github.workspace}}/target/*.jar; do mv "$f" "$(echo "$f" | sed s/.jar/-RC-NNN.jar/)"; done
           echo "artifact_name=$(ls ${{github.workspace}}/target | grep jar)" >> $GITHUB_ENV
         
       - uses: actions/upload-artifact@v2
