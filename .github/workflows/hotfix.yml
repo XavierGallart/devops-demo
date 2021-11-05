@@ -3,7 +3,7 @@ name: Hotfix
 on:
   push:
     branches:    
-      # Push events to branches matching refs/heads/release/*
+      # Push events to branches matching refs/heads/hotfix/*
       - 'hotfix/**'
 
   # Allows you to run this workflow manually from the Actions tab
