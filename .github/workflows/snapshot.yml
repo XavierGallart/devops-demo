@@ -35,30 +35,30 @@ jobs:
       - name: Build with Maven
         run: mvn package
 
-      - run: ls ${{github.workspace}}/target
+      #- run: ls ${{github.workspace}}/target
       
-      - run: ls ${{github.workspace}}/target | grep jar
+      #- run: ls ${{github.workspace}}/target | grep jar
       
       - run: |
-          cd ${{github.workspace}}/target
-          for f in *.jar; do mv "$f" "$(echo "$f" | sed s/.jar/-SNAPSHOT.jar/)"; done
+          #cd ${{github.workspace}}/target
+          for f in ${{github.workspace}}/target/*.jar; do mv "$f" "$(echo "$f" | sed s/.jar/-SNAPSHOT.jar/)"; done
       
-      - run: ls ${{github.workspace}}/target
+      #- run: ls ${{github.workspace}}/target
       
       
-      - run: find ${{github.workspace}}/target -iname *.jar -type f -printf "%f\n"
+      #- run: find ${{github.workspace}}/target -iname *.jar -type f -printf "%f\n"
       
       - name: Set the value
         id: step_one
         run: |
           echo "artifact_name=$(ls ${{github.workspace}}/target | grep jar)" >> $GITHUB_ENV
           
-      - name: Use the value
-        id: step_two
-        run: |
-          echo "${{ env.artifact_name }}"
+      #- name: Use the value
+      #  id: step_two
+      #  run: |
+      #    echo "${{ env.artifact_name }}"
       
       - uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.artifact_name }}-SNAPSHOT	
+          name: ${{ env.artifact_name }}
           path: target/*.jar
