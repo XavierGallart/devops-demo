@@ -23,46 +23,6 @@ jobs:
       
       - run: mkdir -p ${{github.workspace}}/newFolder
       - run: echo hello > ${{github.workspace}}/newFolder/world.txt
-      - run: ls ${{github.workspace}}/newFolder/world.txt
+      - run: ls ${{github.workspace}}/newFolder
 
-      - name: build
-        run: echo Running build
-        
-      - name: Set up JDK 8
-        uses: actions/setup-java@v2
-        with:
-          java-version: '8'
-          distribution: 'adopt'
-          cache: maven
-          
-      - name: Build with Maven
-        run: mvn package
-        
-      - uses: actions/upload-artifact@v2
-        with:
-          name: X.Y.Z-SNAPSHOT
-          path: target/*.jar
-        
-  deploy-to-DEV:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: deploy-to-DEV
-        run: echo Deploy to DEV    
-        
-  tests:
-    needs: deploy-to-DEV
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: tests
-        run: echo Running tests    
-        
-  post:
-    needs: tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: post
-        run: echo Running post actions        
+       
