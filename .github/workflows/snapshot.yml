@@ -23,6 +23,7 @@ jobs:
       
       - run: mkdir -p ${{github.workspace}}/newFolder
       - run: echo hello > ${{github.workspace}}/newFolder/world.txt
+      - run: ls ${{github.workspace}}/newFolder/world.txt
 
       - name: build
         run: echo Running build
