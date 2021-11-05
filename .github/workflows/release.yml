@@ -71,4 +71,4 @@ jobs:
 
     steps:
       - name: post
-        run: echo Running post actions        
+        run: echo Running post action        
