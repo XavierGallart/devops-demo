@@ -37,12 +37,12 @@ jobs:
 
       - run: ls ${{github.workspace}}/target
       
-      - run: grep jar ${{github.workspace}}/target
+      - run: ls ${{github.workspace}}/target | grep jar
       
       - name: Set the value
         id: step_one
         run: |
-          echo "action_state=$(grep jar ${{github.workspace}}/target)" >> $GITHUB_ENV
+          echo "action_state=$(ls ${{github.workspace}}/target | grep jar)" >> $GITHUB_ENV
           
       - name: Use the value
         id: step_two
