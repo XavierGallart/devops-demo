@@ -40,7 +40,7 @@ jobs:
       - run: ls ${{github.workspace}}/target | grep jar
       
       - run: |
-          cd ${{github.workspace}}/target,
+          cd ${{github.workspace}}/target
           for f in *.jpg; do mv "$f" "$(echo "$f" | sed s/.jar/-SNAPSHOT.jar/)"; done
       
       - run: ls ${{github.workspace}}/target
