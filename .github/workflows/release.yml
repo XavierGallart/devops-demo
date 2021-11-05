@@ -36,12 +36,6 @@ jobs:
         with:
           name: ${{ env.artifact_name }}
           path: target/*.jar
-        
-      #- name: Bump version and push tag
-      #  id: tag_version
-      #  uses: mathieudutour/github-tag-action@v5.6
-      #  with:
-      #    github_token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Tag snapshot
         uses: tvdias/github-tagger@v0.0.1
@@ -49,12 +43,16 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ env.release_version }}
       
-      - name: Create a GitHub release
-        uses: ncipollo/release-action@v1
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag: ${{ env.release_version }}
-          name: Release ${{ env.release_version }}
-          body: Body of the release
+          tag_name: ${{ env.release_version }}
+          release_name: Release ${{ env.release_version }}
+          draft: false
+          prerelease: false
           
   deploy-to-PRO:
     needs: promote-RC-version
