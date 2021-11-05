@@ -18,6 +18,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - run: mkdir -p path/to/artifact
+      - run: echo hello > path/to/artifact/world.txt
+      
+      - run: mkdir -p ${{github.workspace}}/newFolder
+      - run: echo hello > ${{github.workspace}}/newFolder/world.txt
+
       - name: build
         run: echo Running build
         
