@@ -54,9 +54,9 @@ jobs:
       - name: Use the value
         id: step_two
         run: |
-          echo "${{ env.action_state }}"
+          echo "${{ env.artifact_name }}"
       
       - uses: actions/upload-artifact@v2
         with:
-          name: ${{ artifact_name }}-SNAPSHOT	
+          name: ${{ env.artifact_name }}-SNAPSHOT	
           path: target/*.jar
