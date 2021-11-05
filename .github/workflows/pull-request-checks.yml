@@ -3,7 +3,9 @@ name: Pull-request checks
 # Controls when the workflow will run
 on:
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
+      - develop
 
 jobs:
   checks:
