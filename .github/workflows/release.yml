@@ -30,24 +30,31 @@ jobs:
         run: |
           mvn package
           echo "artifact_name=$(ls ${{github.workspace}}/target | grep jar)" >> $GITHUB_ENV
-        
+          echo "release_version=$(ls ${{github.workspace}}/target | grep jar | grep -o -P '(?<=-).*(?=.jar)')" >> $GITHUB_ENV
+
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ env.artifact_name }}
           path: target/*.jar
         
-      - name: Bump version and push tag
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v5.6
+      #- name: Bump version and push tag
+      #  id: tag_version
+      #  uses: mathieudutour/github-tag-action@v5.6
+      #  with:
+      #    github_token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Tag snapshot
+        uses: tvdias/github-tagger@v0.0.1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ env.release_version }}
       
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
+          tag: ${{ env.release_version }}
+          name: Release ${{ env.release_version }}
+          body: Body of the release
           
   deploy-to-PRO:
     needs: promote-RC-version
