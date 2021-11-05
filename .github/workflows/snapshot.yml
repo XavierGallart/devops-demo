@@ -39,6 +39,8 @@ jobs:
       
       - run: ls ${{github.workspace}}/target | grep jar
       
+      - run: find ${{github.workspace}}/target -iname *.jar
+      
       - name: Set the value
         id: step_one
         run: |
