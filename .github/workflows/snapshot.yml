@@ -49,11 +49,15 @@ jobs:
           distribution: 'adopt'
           cache: maven
       - name: Build with Maven
-        run: mvn -B package --file pom.xml
+        run: |
+          mvn -B package --file pom.xml,
+          ls -la target,
+          for f in target/*.jar; do mv -- "$f" "${f%}-SNAPSHOT.jar",
+          ls -la target,
         
       - uses: actions/upload-artifact@v2
         with:
-          name: my-artifact
+          #name: my-artifact
           path: target/*.jar
         
   deploy-to-DEV:
