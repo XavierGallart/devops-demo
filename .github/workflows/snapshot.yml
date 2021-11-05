@@ -39,7 +39,9 @@ jobs:
       
       - run: ls ${{github.workspace}}/target | grep jar
       
-      - run: for f in ${{github.workspace}}/target/*.jpg; do mv "$f" "$(echo "$f" | sed s/.jar/-SNAPSHOT.jar/)"; done
+      - run: |
+          cd ${{github.workspace}}/target,
+          for f in *.jpg; do mv "$f" "$(echo "$f" | sed s/.jar/-SNAPSHOT.jar/)"; done
       
       - run: ls ${{github.workspace}}/target
       
