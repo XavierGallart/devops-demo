@@ -39,7 +39,7 @@ jobs:
         
       - uses: actions/upload-artifact@v2
         with:
-          #name: my-artifact
+          name: X.Y.Z-SNAPSHOT
           path: target/*.jar
         
   deploy-to-DEV:
