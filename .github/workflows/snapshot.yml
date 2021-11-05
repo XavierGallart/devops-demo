@@ -41,7 +41,7 @@ jobs:
       
       - run: |
           cd ${{github.workspace}}/target
-          for f in *.jpg; do mv "$f" "$(echo "$f" | sed s/.jar/-SNAPSHOT.jar/)"; done
+          for f in *.jar; do mv "$f" "$(echo "$f" | sed s/.jar/-SNAPSHOT.jar/)"; done
       
       - run: ls ${{github.workspace}}/target
       
