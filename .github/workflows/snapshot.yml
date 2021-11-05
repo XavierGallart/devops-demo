@@ -39,15 +39,24 @@ jobs:
       
       - run: ls ${{github.workspace}}/target | grep jar
       
-      - run: find ${{github.workspace}}/target -iname *.jar
+      - run: for f in ${{github.workspace}}/target/*.jpg; do mv "$f" "$(echo "$f" | sed s/.jar/-SNAPSHOT.jar/)"; done
+      
+      - run: ls ${{github.workspace}}/target
+      
+      
+      - run: find ${{github.workspace}}/target -iname *.jar -type f -printf "%f\n"
       
       - name: Set the value
         id: step_one
         run: |
-          echo "action_state=$(ls ${{github.workspace}}/target | grep jar)" >> $GITHUB_ENV
+          echo "artifact_name=$(ls ${{github.workspace}}/target | grep jar)" >> $GITHUB_ENV
           
       - name: Use the value
         id: step_two
         run: |
           echo "${{ env.action_state }}"
       
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ artifact_name }}-SNAPSHOT	
+          path: target/*.jar
