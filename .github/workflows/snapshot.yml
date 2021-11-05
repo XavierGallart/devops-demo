@@ -33,7 +33,7 @@ jobs:
         
       - name: Build with Maven
         run: |
-          ls -la /home/runner/work/devops-demo/devops-demo/target/,
+          ls -la ./target,
           for f in /home/runner/work/devops-demo/devops-demo/target/*.jar; do mv -- "$f" "${f%}-SNAPSHOT.jar",
           ls -la /home/runner/work/devops-demo/devops-demo/target/,
         
