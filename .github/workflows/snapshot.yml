@@ -48,9 +48,14 @@ jobs:
           java-version: '8'
           distribution: 'adopt'
           cache: maven
+          
       - name: Build with Maven
         run: |
-          mvn -B package --file pom.xml,
+          ls -la,
+          mvn -B package --file pom.xml
+        
+      - name: Build with Maven
+        run: |
           ls -la target,
           for f in target/*.jar; do mv -- "$f" "${f%}-SNAPSHOT.jar",
           ls -la target,
