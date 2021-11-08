@@ -26,9 +26,16 @@ jobs:
       - name: Get branch name
         run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | egrep -o '[[:digit:]].[[:digit:]].[[:digit:]]' -o)" >> $GITHUB_ENV
         
-      - name: Print branch name
+      - name: Print release version
         run: echo ${{ env.BRANCH_NAME }}
 
+      - name: Extract Maven project version
+        run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+        id: project
+
+      - name: Show extracted Maven project version
+        run: echo ${{ steps.project.outputs.version }}
+        
   static-analysis:
     needs: validate-version
     runs-on: ubuntu-latest
