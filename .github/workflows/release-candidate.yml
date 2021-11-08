@@ -18,18 +18,19 @@ jobs:
 
 
   validate-version:
+    needs: checkout
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
       - name: Get branch name
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | egrep -o '[[:digit:]].[[:digit:]].[[:digit:]]' -o)" >> $GITHUB_ENV
         
       - name: Print branch name
         run: echo ${{ env.BRANCH_NAME }}
 
   static-analysis:
-    needs: checkout
+    needs: validate-version
     runs-on: ubuntu-latest
 
     steps:
