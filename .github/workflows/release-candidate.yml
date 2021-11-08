@@ -36,11 +36,11 @@ jobs:
       - name: Show extracted Maven project version
         run: echo ${{ steps.project.outputs.version }}
       
-      #- name: A/B Check
-      #  if: ${{ steps.project.outputs.version }} != ${{ env.BRANCH_NAME }}
-      #  run: |
-      #    echo "Branch version (${{ env.BRANCH_NAME }}) does not match pom.xml version (${{ steps.project.outputs.version }}). Please update pom version.
-      #    exit 1
+      - name: A/B Check
+        if: ${{ steps.project.outputs.version != env.BRANCH_NAME }}
+        run: |
+          echo "Branch version (${{ env.BRANCH_NAME }}) does not match pom.xml version (${{ steps.project.outputs.version }}). Please update pom version.
+          exit 1
         
   static-analysis:
     needs: validate-version
