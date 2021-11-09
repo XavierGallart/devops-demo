@@ -97,26 +97,52 @@ jobs:
       - name: deploy-to-DEV
         run: echo Push to Quay.io
         
-  deploy-to-QA_UA:
+  deploy-to-QA:
     needs: push-to-Quay
     runs-on: ubuntu-latest
+    environment: 'QA'
 
     steps:
-      - name: deploy-to-DEV
-        run: echo Deploy to DEV    
-        
-  tests:
-    needs: deploy-to-QA_UA
+      - name: deploy-to-QA
+        run: echo Deploy to QA
+
+  tests-QA:
+    needs: deploy-to-QA
     runs-on: ubuntu-latest
 
     steps:
       - name: tests
-        run: echo Running tests    
-        
-  post:
-    needs: tests
+        run: echo Running tests
+
+  post-QA:
+    needs: tests-QA
     runs-on: ubuntu-latest
 
     steps:
       - name: post
-        run: echo Running post actions        
+        run: echo Running post actions
+
+  deploy-to-UA:
+    needs: post-QA
+    runs-on: ubuntu-latest
+    environment: 'UA'
+
+    steps:
+      - name: deploy-to-UA
+        run: echo Deploy to UA
+
+  tests-UA:
+    needs: deploy-to-UA
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: tests
+        run: echo Running tests
+
+  post-UA:
+    needs: tests-UA
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: post
+        run: echo Running post actions
