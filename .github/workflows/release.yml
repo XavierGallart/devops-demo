@@ -57,7 +57,7 @@ jobs:
           prerelease: false
           
   deploy-to-PRO:
-    needs: promote-RC-version
+    needs: generate-inmutable-version
     runs-on: ubuntu-latest
     environment: 'PRO'
 
