@@ -16,8 +16,6 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-        
-      - run: echo ${{ toJson(github.event.commits) }}
 
   generate-inmutable-version:
     needs: checkout
