@@ -11,8 +11,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      - run: echo ${{ toJson(github.event.commits) }}
 
-  promote-RC-version:
+  generate-inmutable-version:
     needs: checkout
     runs-on: ubuntu-latest
 
