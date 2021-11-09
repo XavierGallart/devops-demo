@@ -26,10 +26,11 @@ jobs:
       - run: echo "Pull ${{ github.event.inputs.version }}!"
       
   deploy:
+    environment: ${{ github.event.inputs.environment }}
     needs: pull-from-Quay
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Deploy to ${{ github.event.inputs.environment }}!"
+      - run: echo "Deploy to ${{ github.event.inputs.environment }}"
       
   post:
     needs: deploy
