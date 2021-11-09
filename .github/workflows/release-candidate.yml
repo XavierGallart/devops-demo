@@ -39,13 +39,13 @@ jobs:
       - name: Version Check
         if: ${{ steps.project.outputs.version != env.BRANCH_NAME }}
         run: |
-          echo "Branch version (${{ env.BRANCH_NAME }}) does not match pom.xml version (${{ steps.project.outputs.version }}). Please update pom version.
+          echo "Branch version (${{ env.BRANCH_NAME }}) does not match pom.xml version (${{ steps.project.outputs.version }}). Please update pom version."
           exit 1
           
       - name: Version Check result
         if: ${{ steps.project.outputs.version == env.BRANCH_NAME }}
         run: |
-          echo "Branch version (${{ env.BRANCH_NAME }}) match pom.xml version (${{ steps.project.outputs.version }}). Please update pom version.     
+          echo "Branch version (${{ env.BRANCH_NAME }}) match pom.xml version (${{ steps.project.outputs.version }}). Please update pom version."
         
   static-analysis:
     needs: validate-version
