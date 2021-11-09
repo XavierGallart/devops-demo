@@ -45,7 +45,7 @@ jobs:
       - name: Version Check result
         if: ${{ steps.project.outputs.version == env.BRANCH_NAME }}
         run: |
-          echo "Branch version (${{ env.BRANCH_NAME }}) match pom.xml version (${{ steps.project.outputs.version }}). Please update pom version."
+          echo "Branch version (${{ env.BRANCH_NAME }}) match pom.xml version (${{ steps.project.outputs.version }})."
         
   static-analysis:
     needs: validate-version
