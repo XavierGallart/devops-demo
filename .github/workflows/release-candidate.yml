@@ -43,7 +43,7 @@ jobs:
           exit 1
           
       - name: Version Check result
-        if: ${{ steps.project.outputs.version != env.BRANCH_NAME }}
+        if: ${{ steps.project.outputs.version == env.BRANCH_NAME }}
         run: |
           echo "Branch version (${{ env.BRANCH_NAME }}) match pom.xml version (${{ steps.project.outputs.version }}). Please update pom version.     
         
